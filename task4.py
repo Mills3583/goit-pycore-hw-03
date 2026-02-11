@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta
 
-def get_upcoming_birthdays(users):
+
+def get_upcoming_birthdays(users: list[dict[str, str]]) -> list[dict[str, str]]:
     today = datetime.today().date()
-    upcoming_birthdays = []
+    upcoming_birthdays: list[dict[str, str]] = []
 
     for user in users:
         # Перетворюємо рядок дати у об'єкт date
@@ -16,7 +17,7 @@ def get_upcoming_birthdays(users):
             birthday_this_year = birthday_this_year.replace(year=today.year + 1)
         
         # Рахуємо різницю в днях
-        days_until = (birthday_this_year - today).days
+        days_until: int = (birthday_this_year - today).days
         
         # Перевіряємо, чи день народження протягом наступних 7 днів (включно з сьогодні)
         if 0 <= days_until <= 7:
@@ -36,13 +37,14 @@ def get_upcoming_birthdays(users):
             
     return upcoming_birthdays
 
-# Приклад використання:
-users = [
-    {"name": "John Doe", "birthday": "1985.01.23"},
-    {"name": "Jane Smith", "birthday": "1990.01.27"},
-    {"name": "Anton Kashuba", "birthday": "1993.08.16"},
-    {"name": "Birthday Boy", "birthday": "1995.02.16"} # Тестова дата
-]
 
-upcoming = get_upcoming_birthdays(users)
-print("Список привітань на цьому тижні:", upcoming)
+if __name__ == "__main__":
+    users_list: list[dict[str, str]] = [
+        {"name": "John Doe", "birthday": "1985.01.23"},
+        {"name": "Jane Smith", "birthday": "1990.01.27"},
+        {"name": "Anton Kashuba", "birthday": "1993.08.16"},
+        {"name": "Birthday Boy", "birthday": "1995.02.16"} # Тестова дата
+    ]
+
+    upcoming: list = get_upcoming_birthdays(users_list)
+    print(f"Список привітань на цьому тижні: {upcoming}")
